@@ -47,53 +47,47 @@ productRoute.get('/:produtId',(req,res)=>{
 
 productRoute.post('/add-Products',(req,res)=>{
     const product = req.body
-    if(!product)
-        res.status(404).send("product not found")
-    else{
-        productsList.push(product)
-        const response = {
-            statusCode:201,
-            statusMessage:"created",
-            data: findProduct
-        }
-        res.send(response)
+    
+    productsList.push(product)
+    const response = {
+        statusCode:201,
+        statusMessage:"created",
+        data: findProduct
     }
+        
+    res.send(response)
+    
         
 })
 
-productRoute.put('/',(req,res)=>{
+productRoute.put('/modify-product',(req,res)=>{
 
     const {produtId} = req.params
     const modifiedPayload = req.body
-    if(!produtId)
-        res.status(404).send("Product ID not available")
-    else{
-        const updatedProduct = productsList.map((product) => {
-            if(product.id == produtId)
-                product = modifiedPayload
-
-            return product
-        }) 
-        
-        productsList.push(updatedProduct) 
-        const response = {
-            statusCode:201,
-            statusMessage:"created",
-            data: updatedProduct
-        }
-
-        res.send(response)
-    }
-       
     
+    const updatedProduct = productsList.map((product) => {
+        if(product.id == produtId)
+            product = modifiedPayload
 
+        return product
+    }) 
+    productsList = []    
+    productsList = updatedProduct
+    const response = {
+        statusCode:201,
+        statusMessage:"created",
+        data: updatedProduct
+    }
+
+    res.send(response)
+    
 })
-productRoute.delete('/:produtId',(req,res)=>{
+productRoute.delete('/remove-product/:id',(req,res)=>{
 
     const {produtId} = req.params
-
-    const deletedProduct =  product.filter((value.id === produtId))
-
+    const afterDeleteProductList =  productsList.filter((value.id != produtId))
+    productsList = []
+    productsList = afterDeleteProductList
    const response = {
         statusCode:200,
         statusMessage:"ok",
