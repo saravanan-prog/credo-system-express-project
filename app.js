@@ -1,11 +1,13 @@
-import express from 'express'
+import express, { urlencoded } from 'express'
 const app = express()
-import mainRouter from './src/routes/Main.route.js'
+app.use(express.json())
+
+import productRoute from './src/routes/Product.route.js'
 
 const PORT = 8080
 
 /* Router Middleware */
-app.use('/',mainRouter)
+app.use('/products',productRoute)
 
 app.listen(PORT,()=>{
     console.log("Your server is ready",PORT)
