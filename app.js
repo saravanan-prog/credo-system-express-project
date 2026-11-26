@@ -1,8 +1,9 @@
 import express from 'express'
+import productRoute from './src/routes/product.route.js'
+
 const app = express()
 app.use(express.json())
 
-import productRoute from './src/routes/Product.route.js'
 
 const PORT = 8080
 

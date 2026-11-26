@@ -1,6 +1,6 @@
 import express from 'express'
 const productRoute = express.Router()
-import productsList from '../models/product.model.js' with {type:'json'}
+import productModel from '../models/product.model.js' with {type:'json'}
 
 
 
@@ -19,8 +19,8 @@ productRoute.get('/',(req,res)=>{
 
     const { id } = req.query
 
-    const findProduct = productsList.filter(value => value.id === id)
-    
+    const findProduct = productModel.filter(value => value.id === id)
+    productModel = findProduct
     const response = {
         statusCode:200,
         statusMessage:"success",
@@ -34,7 +34,7 @@ productRoute.get('/:produtId',(req,res)=>{
 
     const { produtId } = req.params
 
-    const findProduct = productsList.filter(value => value.id === produtId )
+    const findProduct = productModel.filter(value => value.id === produtId )
     
     const response = {
         statusCode:200,
@@ -48,7 +48,7 @@ productRoute.get('/:produtId',(req,res)=>{
 productRoute.post('/add-Products',(req,res)=>{
     const product = req.body
     
-    productsList.push(product)
+    productModel.push(product)
     const response = {
         statusCode:201,
         statusMessage:"created",
@@ -65,14 +65,14 @@ productRoute.put('/modify-product',(req,res)=>{
     const {produtId} = req.params
     const modifiedPayload = req.body
     
-    const updatedProduct = productsList.map((product) => {
+    const updatedProduct = productModel.map((product) => {
         if(product.id == produtId)
             product = modifiedPayload
 
         return product
     }) 
-    productsList = []    
-    productsList = updatedProduct
+    productModel = []    
+    productModel = updatedProduct
     const response = {
         statusCode:201,
         statusMessage:"created",
@@ -85,9 +85,9 @@ productRoute.put('/modify-product',(req,res)=>{
 productRoute.delete('/remove-product/:id',(req,res)=>{
 
     const {produtId} = req.params
-    const afterDeleteProductList =  productsList.filter((value.id != produtId))
-    productsList = []
-    productsList = afterDeleteProductList
+    const afterDeleteProductList =  productModel.filter((value.id != produtId))
+    productModel = []
+    productModel = afterDeleteProductList
    const response = {
         statusCode:200,
         statusMessage:"ok",
